@@ -3,18 +3,26 @@ import { createContext, useState } from "react";
 export const ShopContext = createContext();
 
 export const ShopProvider = ({ children }) => {
-
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
   const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
+    // لو المنتج مش موجود في الكارت، ضيفه
+    if (!cart.some((item) => item.id === product.id)) {
+      setCart((prev) => [...prev, product]);
+    }
   };
 
   const addToWishlist = (product) => {
     setWishlist((prev) => {
-      if (prev.find((item) => item.id === product.id)) return prev;
-      return [...prev, product];
+      const exists = prev.some((item) => item.id === product.id);
+      if (exists) {
+        // لو موجود، أشيله
+        return prev.filter((item) => item.id !== product.id);
+      } else {
+        // لو مش موجود، أضيفه
+        return [...prev, product];
+      }
     });
   };
 

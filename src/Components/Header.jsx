@@ -5,8 +5,9 @@ import { FaRegHeart, FaSearch } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegCircleUser } from "react-icons/fa6";
 
+import '../CSS/Header.css'
+
 const Header = () => {
-  // ✅ استخدام الـ context جوّه الـ component
   const { cart, wishlist } = useContext(ShopContext);
 
   return (
@@ -35,7 +36,7 @@ const Header = () => {
             <ul className="navbar-nav mx-auto gap-4">
               <li className="nav-item"><Link className="nav-link active" to="/">Home</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/About">About</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
             </ul>
 
@@ -53,7 +54,7 @@ const Header = () => {
               </div>
 
               {/* Wishlist Icon */}
-              <div className="position-relative">
+              <div className="position-relative" >
                 <FaRegHeart size={20} />
                 {wishlist.length > 0 && (
                   <span className="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
