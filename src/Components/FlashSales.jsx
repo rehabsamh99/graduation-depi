@@ -29,12 +29,66 @@ import img4 from "../assets/prod (4).svg";
 const FlashSales = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 3,
+    hours: 23,
+    minutes: 19,
+    seconds: 56
+  });
   const swiperRef = useRef(null);
 
   const { addToCart, wishlist, addToWishlist } = useContext(ShopContext);
   const navigate = useNavigate();
 
   const API_URL = "http://localhost:3000/api/products";
+
+  // تايمر العد التنازلي
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        const { days, hours, minutes, seconds } = prev;
+        
+        let newSeconds = seconds - 1;
+        let newMinutes = minutes;
+        let newHours = hours;
+        let newDays = days;
+        
+        if (newSeconds < 0) {
+          newSeconds = 59;
+          newMinutes -= 1;
+          
+          if (newMinutes < 0) {
+            newMinutes = 59;
+            newHours -= 1;
+            
+            if (newHours < 0) {
+              newHours = 23;
+              newDays -= 1;
+            }
+          }
+        }
+        
+        // إعادة التعيين عندما ينتهي الوقت
+        if (newDays < 0) {
+          return {
+            days: 3,
+            hours: 23,
+            minutes: 59,
+            seconds: 59
+          };
+        }
+        
+        return {
+          days: newDays,
+          hours: newHours,
+          minutes: newMinutes,
+          seconds: newSeconds
+        };
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -70,13 +124,45 @@ const FlashSales = () => {
 
   return (
     <div className="container my-5 ms-3 flash-container">
-      {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-3 w-100">
+      {/* Header مع التايمر */}
+      <div className="d-flex justify-content-between align-items-center mb-4 w-100">
         <div className="d-flex flex-column">
           <p className="cat-label mb-1">Today's</p>
           <h2 className="fw-bold mb-0">Flash Sales</h2>
         </div>
 
+        {/* التايمر المضاف */}
+        <div className="d-flex align-items-center gap-3">
+          <div className="text-center">
+            <p className="mb-1 small  text-danger">Days</p>
+            <div className="timer-box bg-light  text-dark rounded-2 px-3 py-2">
+              <h4 className="fw-bold mb-0">{timeLeft.days.toString().padStart(2, '0')}</h4>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="mb-1 small text-danger">Hours</p>
+            <div className="timer-box bg-light  text-dark rounded-2 px-3 py-2">
+              <h4 className="fw-bold mb-0">{timeLeft.hours.toString().padStart(2, '0')}</h4>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="mb-1 small text-danger">Minutes</p>
+            <div className="timer-box bg-light  text-dark rounded-2 px-3 py-2">
+              <h4 className="fw-bold mb-0">{timeLeft.minutes.toString().padStart(2, '0')}</h4>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="mb-1 small text-danger">Seconds</p>
+            <div className="timer-box bg-light  text-dark rounded-2 px-3 py-2">
+              <h4 className="fw-bold mb-0">{timeLeft.seconds.toString().padStart(2, '0')}</h4>
+            </div>
+          </div>
+        </div>
+
+        {/* أزرار السابق/التالي (كما هي) */}
         <div className="d-flex gap-2">
           <button className="btn btn-light shadow-sm" onClick={() => swiperRef.current?.slidePrev()}>
             <FaArrowLeft />
@@ -87,7 +173,7 @@ const FlashSales = () => {
         </div>
       </div>
 
-      {/* Swiper */}
+      {/* السوايبر (بدون تغيير) */}
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -111,7 +197,6 @@ const FlashSales = () => {
               <SwiperSlide key={product.id}>
                 <div className="product-card rounded-3 shadow-sm overflow-hidden">
                   <div className="image-box position-relative">
-                    {/* Icons wrapper */}
                     <div className="icons-wrapper">
                       <button
                         className="icon-btn"
@@ -158,7 +243,7 @@ const FlashSales = () => {
         </Swiper>
       )}
 
-      {/* View All */}
+      {/* View All (بدون تغيير) */}
       <div className="text-center mt-4">
         <Link to="/products" className="btn btn-danger px-4 py-2 view-products-btn">
           View All Products

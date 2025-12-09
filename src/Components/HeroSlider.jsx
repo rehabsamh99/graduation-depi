@@ -25,7 +25,7 @@ const HeroSlider = () => {
           disableOnInteraction: false,
         }}
         pagination={{ clickable: true }}
-        className="mySwiper mb-5"
+        className="mySwiper mb-5 mt-5"
       >
 
    {/* Slide 1 */}

@@ -67,10 +67,11 @@ const BrowseByCategory = () => {
         <Swiper
           slidesPerView={5}
           breakpoints={{
-            400: { slidesPerView: 1.7 },
-            740: { slidesPerView: 2.5 },
-            990: { slidesPerView: 4 },
-            1024: { slidesPerView: 6 },
+            320: { slidesPerView: 1.5, spaceBetween: 10 },
+            540: { slidesPerView:2.5 , spaceBetween: 15 },
+            768: { slidesPerView: 3, spaceBetween: 20 },
+            992: { slidesPerView: 5, spaceBetween: 20 },
+            1200: { slidesPerView: 6, spaceBetween: 20 },
           }}
           modules={[Navigation]}
           onInit={(swiper) => {

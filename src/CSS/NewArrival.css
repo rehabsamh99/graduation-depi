@@ -88,3 +88,44 @@
   border-radius: 5px;
   cursor: pointer;
 }
+/* ============================
+   Responsive
+=============================== */
+
+@media (max-width: 992px) {
+  .arrival-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-products {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .side-product:nth-child(1) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .side-products {
+    grid-template-columns: 1fr;
+  }
+
+  .side-product {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-product .product-info h3,
+  .side-product .product-info h4 {
+    font-size: 1rem;
+  }
+
+  .main-product img,
+  .side-product img {
+    height: 250px;
+    object-fit: cover;
+  }
+}

@@ -57,3 +57,38 @@
 .service-card:hover .service-text {
   color: white;
 }
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 1200px) {
+  .services {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .services {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .services {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
+
+  .service-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .service-number {
+    font-size: 1.6rem;
+  }
+
+  .service-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+}

@@ -1,18 +1,21 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../Components/ShopContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaRegHeart, FaSearch } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegCircleUser } from "react-icons/fa6";
 
 import '../CSS/Header.css'
 
+import logo from '../assets/logoo.png'
+
 const Header = () => {
   const { cart, wishlist } = useContext(ShopContext);
+  const location = useLocation();
 
   return (
     <header>
-      <div className="bg-dark text-white text-center py-2 small">
+      <div className="bg-dark text-white text-center py-2 small ">
         Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! 
         <span className="ms-3 text-warning" style={{cursor:"pointer"}}>
           ShopNow
@@ -21,7 +24,7 @@ const Header = () => {
 
       <nav className="navbar navbar-expand-lg bg-white py-1 shadow-sm">
         <div className="container">
-          <Link className="navbar-brand fw-bold fs-3" to="/">Exclusive</Link>
+          <Link className="navbar-brand fw-bold fs-3" to="/"><img src={logo} alt="logo" /></Link>
 
           <button 
             className="navbar-toggler"
@@ -41,17 +44,6 @@ const Header = () => {
             </ul>
 
             <div className="d-flex align-items-center gap-4 position-relative">
-              <div className="position-relative" style={{ maxWidth: "250px" }}>
-                <input 
-                  className="form-control bg-light pe-5 border rounded"
-                  placeholder="What you looking for?"
-                />
-                <FaSearch 
-                  className="position-absolute" 
-                  style={{ right: "10px", top: "50%", transform: "translateY(-50%)", color: "#4b5257ff" }} 
-                />
-                
-              </div>
 
               {/* Wishlist Icon */}
               <div className="position-relative" >
@@ -72,7 +64,8 @@ const Header = () => {
                   </span>
                 )}
               </div>
-                <FaRegCircleUser size={20} />
+
+              <FaRegCircleUser size={20} />
             </div>
           </div>
         </div>

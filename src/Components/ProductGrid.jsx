@@ -91,9 +91,11 @@ const ProductGrid = () => {
             swiper.navigation.update();
           }}
           breakpoints={{
-            400: { slidesPerView: 1, slidesPerGroup: 1, grid: { rows: 1 } },
-            740: { slidesPerView: 2, slidesPerGroup: 2, grid: { rows: 2 } },
-            1024: { slidesPerView: 3, slidesPerGroup: 3, grid: { rows: 2 } },
+            320: { slidesPerView: 1, spaceBetween: 10 },
+            576: { slidesPerView: 2, spaceBetween: 15 },
+            768: { slidesPerView: 3, spaceBetween: 20 },
+            992: { slidesPerView: 3, spaceBetween: 20 },
+            1200: { slidesPerView: 3, spaceBetween: 20 },
           }}
         >
           {products.map((product) => {
