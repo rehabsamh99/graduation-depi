@@ -124,13 +124,17 @@ const Header = () => {
                       right: 0,
                       position: "absolute",
                       zIndex: 1000,
-                      minWidth: "150px",
+                      minWidth: "125px",
+                     
                     }}
                   >
-                    <Link to="/Myprofile" className="dropdown-item">
+                    <Link to="/Myprofile" className="dropdown-item text-danger">
                       Profile
                     </Link>
-                    <button onClick={logout} className="dropdown-item">
+                    <Link to="/" className="dropdown-item text-danger">
+                      Home
+                    </Link>
+                    <button onClick={logout} className="dropdown-item text-danger ">
                       Logout
                     </button>
                   </div>

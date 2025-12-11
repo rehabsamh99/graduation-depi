@@ -1,7 +1,7 @@
 // src/Context/UserContext.jsx
 import { createContext, useState, useEffect } from "react";
 
-export const UserContext = createContext(); // ← لازم يكون named export
+export const UserContext = createContext(); 
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);

@@ -36,6 +36,7 @@ const BrowseByCategory = () => {
         { name: "SmartWatch", image: img3 },
         { name: "Camera", image: img4 },
         { name: "HeadPhones", image: img5 },
+        { name: "SmartWatch", image: img3 },
         { name: "Gaming", image: img6 },
       ]);
     } finally {

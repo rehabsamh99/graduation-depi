@@ -40,6 +40,12 @@ const ProductGrid = () => {
         { id: 12, name: "Curology Product Set", price: 500, rating: 4, reviews: 145, image: img4 },
         { id: 13, name: "Kids Electric Car", price: 960, rating: 5, reviews: 65, image: img5 },
         { id: 14, name: "Jr. Zoom Soccer Cleats", price: 1160, rating: 4, reviews: 35, image: img6 },
+          { id: 9, name: "Breed Dry Dog Food", price: 100, rating: 3, reviews: 35, image: img1 },
+        { id: 10, name: "CANON EOS DSLR Camera", price: 360, rating: 4, reviews: 95, image: img2 },
+        { id: 11, name: "ASUS FHD Gaming Laptop", price: 700, rating: 5, reviews: 325, image: img3 },
+        { id: 12, name: "Curology Product Set", price: 500, rating: 4, reviews: 145, image: img4 },
+        { id: 13, name: "Kids Electric Car", price: 960, rating: 5, reviews: 65, image: img5 },
+        { id: 14, name: "Jr. Zoom Soccer Cleats", price: 1160, rating: 4, reviews: 35, image: img6 },
       ]);
     } finally {
       setLoading(false);

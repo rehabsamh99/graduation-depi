@@ -15,7 +15,7 @@ import Profile from "./Pages/Profile";
 import Wishlist from './Pages/Wishlist.jsx';
 import Payment from './Pages/Payment.jsx';
 import Myprofile from './Pages/Myprofile.jsx'
-// import SuccessPage from './Pages/SuccessPage.jsx';
+import Error from './Pages/Error.jsx'
 
 function App() {
   return (
@@ -35,8 +35,7 @@ function App() {
         <Route path='/wishlist'element={<Wishlist />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/myprofile" element={<Myprofile />} />
-        {/* <Route path="/successPage" element={<SuccessPage />} /> */}
-        
+        <Route path="/Error" element={<Error />} />
         <Route path="*" element={<Error />} />
       </Routes>
 
