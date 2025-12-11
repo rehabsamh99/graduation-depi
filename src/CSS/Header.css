@@ -3,17 +3,16 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999; /* عشان يفضل فوق كل العناصر */
-
+  z-index: 9999; 
 }
 
 /* لو عايز الهيدر ما يقطعش المحتوى تحت منه */
 body {
-  padding-top: 80px; /* عدّل حسب ارتفاع الهيدر */
+  padding-top: 100px !important; /* عدّل حسب ارتفاع الهيدر */
 }
 
 .navbar-brand img{
-  height: 50px;        /* جربي 40 أو 50 حسب مناسب */
+  height: 45px;        /* جربي 40 أو 50 حسب مناسب */
   width: auto;
   object-fit: contain;
 }

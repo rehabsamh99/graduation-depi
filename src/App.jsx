@@ -6,6 +6,16 @@ import Footer from './Components/Footer';
 import Home from './Pages/Home';
 import About from './Pages/About';
 import Products from './Pages/Products'; 
+import Signup from './Pages/Signup';
+import Login from './Pages/Login';
+import Contact from './Pages/Contact';
+import CartPage from './Pages/CartPage';
+import CheckoutPage from './Pages/CheckoutPage';
+import Profile from "./Pages/Profile";
+import Wishlist from './Pages/Wishlist.jsx';
+import Payment from './Pages/Payment.jsx';
+import Myprofile from './Pages/Myprofile.jsx'
+// import SuccessPage from './Pages/SuccessPage.jsx';
 
 function App() {
   return (
@@ -16,6 +26,18 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='cart'  element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path='/wishlist'element={<Wishlist />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/myprofile" element={<Myprofile />} />
+        {/* <Route path="/successPage" element={<SuccessPage />} /> */}
+        
+        <Route path="*" element={<Error />} />
       </Routes>
 
       <Footer />
