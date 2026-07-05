@@ -19,16 +19,20 @@ export default function Login() {
     setLoading(true);
 
     setTimeout(() => {
+      // استرجاع بيانات المستخدم من sessionStorage
+      const savedUser = JSON.parse(sessionStorage.getItem("user"));
+
       if (email && password) {
-        
-        const userData = {
-          name: email.split("@")[0], 
-          email: email,
+        const userData = savedUser || {
+          name: email.split("@")[0],
+          email,
         };
 
+        // تخزين البيانات في Context
         setUser(userData);
 
-        navigate("/Myprofile");
+        // التوجيه لصفحة MyProfile
+        navigate("/myprofile");
       } else {
         setError("Email or password is incorrect!");
       }

@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginSide from "../Components/LoginSide.jsx";
 import "../Css/Signup.css";
 import axios from "axios";
-import { ShopContext } from "../Components/ShopContext.jsx"; // استدعاء الكونتكست
+import { ShopContext } from "../Components/ShopContext.jsx";
 
 export default function Signup() {
-    const { setUser } = useContext(ShopContext); // لتحديث بيانات المستخدم
+    const { setUser } = useContext(ShopContext);
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -36,7 +36,6 @@ export default function Signup() {
     const localFallbackSignup = () => {
         if (formData.email) {
             sessionStorage.setItem("authToken", "local-dev-token");
-            // تخزين بيانات المستخدم في Context
             setUser({
                 firstName: formData.firstName,
                 lastName: formData.lastName,
@@ -56,55 +55,30 @@ export default function Signup() {
         e.preventDefault();
         setErrors({});
         setApiError("");
-        const newErrors = validateForm();
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            return;
+
+        // 1️⃣ تحقق من الفاليديشن
+        const validationErrors = validateForm();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return; // لو في أخطاء، اوقف التنفيذ
         }
 
+        // 2️⃣ تسجيل المستخدم (fallback محلي أو API call)
         setLoading(true);
         try {
-            const res = await axios.post("http://localhost:3000/api/users", {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                email: formData.email,
-                password: formData.password,
-            });
+            // لو عندك API call استخدميه هنا
+            // const res = await axios.post("/api/signup", formData);
+            
+            // استخدام fallback محلي
+            localFallbackSignup();
 
-            const data = res.data || {};
-
-            if (data.token) {
-                sessionStorage.setItem("authToken", data.token);
-                if (data.user) {
-                    sessionStorage.setItem("user", JSON.stringify(data.user));
-                    setUser(data.user); // ← تحديث بيانات المستخدم في Context
-                }
-                navigate("/myprofile"); // توجيه مباشرة للبروفايل
-                return;
-            }
-
+            // عرض رسالة نجاح
             setSubmitted(true);
-            setFormData({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "" });
-            setTimeout(() => {
-                setSubmitted(false);
-                navigate("/login");
-            }, 2000);
+
+            // تحويل للصفحة Login بعد ثانيتين
+            setTimeout(() => navigate("/login"), 2000);
         } catch (err) {
-            if (err.response) {
-                const respData = err.response.data || {};
-                if (respData.errors && typeof respData.errors === "object") {
-                    setErrors((prev) => ({ ...prev, ...respData.errors }));
-                } else {
-                    setApiError(respData.message || `Signup failed (${err.response.status})`);
-                }
-            } else {
-                const ok = localFallbackSignup();
-                if (ok) {
-                    navigate("/myprofile"); // ← توجيه مباشرة للبروفايل في fallback
-                } else {
-                    setApiError("Network error or server unreachable. If you're offline, try test@example.com.");
-                }
-            }
+            setApiError("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }

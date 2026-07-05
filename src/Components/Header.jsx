@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../Components/ShopContext";
 import { Link, useLocation } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
@@ -9,19 +9,21 @@ import "../CSS/Header.css";
 import logo from "../assets/logoo.png";
 
 const Header = () => {
-  // 🟢 جلب بيانات user + setUser + cart + wishlist من الـ Context
   const { user, setUser, cart, wishlist } = useContext(ShopContext);
   const location = useLocation();
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
+  // استرجاع بيانات المستخدم من sessionStorage عند التحميل
+  useEffect(() => {
+    const savedUser = JSON.parse(sessionStorage.getItem("user"));
+    if (savedUser) setUser(savedUser);
+  }, [setUser]);
+
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const logout = () => {
-    setUser(null);                // إزالة المستخدم من الـ Context
-    localStorage.removeItem("user"); // إزالة البيانات من localStorage
+    setUser(null);
+    sessionStorage.removeItem("user");
     setDropdownOpen(false);
   };
 
@@ -37,7 +39,6 @@ const Header = () => {
 
       <nav className="navbar navbar-expand-lg bg-white py-1 shadow-sm">
         <div className="container">
-          
           {/* Logo */}
           <Link className="navbar-brand fw-bold fs-3" to="/">
             <img src={logo} alt="logo" />
@@ -67,20 +68,14 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/About">
+                <Link className="nav-link" to="/about">
                   About
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/signup">
-                  Sign Up
                 </Link>
               </li>
             </ul>
 
             {/* Icons Section */}
             <div className="d-flex align-items-center gap-4 position-relative">
-
               {/* Wishlist Icon */}
               <Link to="/wishlist" className="position-relative text-dark">
                 <FaRegHeart size={20} />
@@ -103,44 +98,51 @@ const Header = () => {
 
               {/* USER DROPDOWN */}
               <div className="position-relative">
-                <div
-                  onClick={toggleDropdown}
-                  style={{ cursor: "pointer" }}
-                  className="d-flex align-items-center gap-1"
-                >
-                  <FaRegCircleUser size={20} />
-                  {user ? (
-                    <span>{user.name}</span>
-                  ) : (
-                    <Link to="/login"
-                    className="text-dark text-decoration-none">Login</Link>
-                  )}
-                </div>
+                {user ? (
+                  <>
+                    <div
+                      onClick={toggleDropdown}
+                      style={{ cursor: "pointer" }}
+                      className="d-flex align-items-center gap-1"
+                    >
+                      <FaRegCircleUser size={20} />
+                      <span>{user.firstName || user.name}</span>
+                    </div>
 
-                {user && dropdownOpen && (
-                  <div
-                    className="dropdown-menu show p-2"
-                    style={{
-                      right: 0,
-                      position: "absolute",
-                      zIndex: 1000,
-                      minWidth: "125px",
-                     
-                    }}
-                  >
-                    <Link to="/Myprofile" className="dropdown-item text-danger">
-                      Profile
+                    {dropdownOpen && (
+                      <div
+                        className="dropdown-menu show p-2"
+                        style={{
+                          right: 0,
+                          position: "absolute",
+                          zIndex: 1000,
+                          minWidth: "125px",
+                        }}
+                      >
+                        <Link to="/myprofile" className="dropdown-item text-danger">
+                          Profile
+                        </Link>
+                        <Link to="/" className="dropdown-item text-danger">
+                          Home
+                        </Link>
+                        <button onClick={logout} className="dropdown-item text-danger">
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  // لو مفيش user، أظهر Login و Sign Up
+                  <div className="d-flex gap-2">
+                    <Link to="/login" className="text-dark text-decoration-none">
+                      Login /
                     </Link>
-                    <Link to="/" className="dropdown-item text-danger">
-                      Home
+                    <Link to="/signup" className="text-dark text-decoration-none">
+                      Sign Up
                     </Link>
-                    <button onClick={logout} className="dropdown-item text-danger ">
-                      Logout
-                    </button>
                   </div>
                 )}
               </div>
-
             </div>
           </div>
         </div>
